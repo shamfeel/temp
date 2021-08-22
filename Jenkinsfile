@@ -1,4 +1,9 @@
 pipeline {
+  environment {
+    registry = "shamfeel/alpinesql"
+    registryCredential = 'Docker'
+    dockerImage = ''
+  }
   agent any
   stages {
     stage('checkout') {
@@ -8,7 +13,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'docker build'
+        dockerImage = docker.build registry + ":$BUILD_NUMBER"
           }
     }
   }
